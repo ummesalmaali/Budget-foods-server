@@ -14,7 +14,7 @@ app.use(cors());
 
 
 const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://budget:budget77@cluster0.npsqi.mongodb.net/budget-foods?retryWrites=true&w=majority";
+const uri = "mongodb+srv://${process.env.DB_NAME}:${process.env.DB_PASS}@cluster0.npsqi.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
   const foodCollection = client.db('budget-foods').collection("foods");
@@ -40,4 +40,4 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.listen(port);
+app.listen(process.env.PORT || port);
