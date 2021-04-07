@@ -58,6 +58,14 @@ client.connect((err) => {
         res.send(result);
       });
   });
+  app.post('/addOrder',(req,res)=>{
+    const newOrder = req.body;
+    foodCollection.insertOne(newOrder)
+    .then(result => {
+      res.send(result.insertedCount > 0)
+    })
+    console.log(newOrder);
+  })
 });
 
 app.get("/", (req, res) => {
